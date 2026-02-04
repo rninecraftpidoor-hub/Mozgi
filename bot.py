@@ -2,7 +2,6 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 import os
 
-TOKEN = os.environ["8259691354:AAEvjr0Bn_EbIJoIQU5tqqVbaF4uAJIYeMc"]
 GAME_SHORT_NAME = "Cazino" # тот самый short name из BotFather
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
