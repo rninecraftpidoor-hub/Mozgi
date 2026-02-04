@@ -3,11 +3,11 @@ from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 import os
 
 TOKEN = os.environ["BOT_TOKEN"]
-GAME_SHORT_NAME = "Cazino"  # ← ТВОЁ короткое имя из BotFather
+GAME_SHORT_NAME = "Cazino"  # ровно как в BotFather
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
-        "🎰 Добро пожаловать!\nНапиши /play чтобы запустить игру"
+        "🎰 Добро пожаловать!\nНапиши /play чтобы запустить мини-игру 🎮"
     )
 
 async def play(update: Update, context: ContextTypes.DEFAULT_TYPE):
