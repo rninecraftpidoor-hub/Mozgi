@@ -3,7 +3,7 @@ from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 import os
 
 TOKEN = os.environ["BOT_TOKEN"]
-GAME_URL = "https://rninecraftpidoor-hub.github.io/Cazik/"
+GAME_URL = "https://rninecraftpidoor-hub.github.io/Cazik/?2"
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("Напиши /play чтобы открыть игру 🎮")
