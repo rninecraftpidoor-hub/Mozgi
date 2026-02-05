@@ -4,7 +4,7 @@ import os
 
 TOKEN = os.environ["BOT_TOKEN"]
 
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def play(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton(
             text="🎮 Играть",
@@ -18,5 +18,11 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 app = ApplicationBuilder().token(TOKEN).build()
-app.add_handler(CommandHandler("start", start))
+
+# БЫЛО:
+# app.add_handler(CommandHandler("start", start))
+
+# СТАЛО:
+app.add_handler(CommandHandler("play", play))
+
 app.run_polling()
