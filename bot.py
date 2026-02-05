@@ -19,10 +19,7 @@ async def play(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 app = ApplicationBuilder().token(TOKEN).build()
 
-# БЫЛО:
-# app.add_handler(CommandHandler("start", start))
-
-# СТАЛО:
-app.add_handler(CommandHandler("play", play))
+# Ловим И start, И play (в ЛС и в группах)
+app.add_handler(CommandHandler(["start", "play"], play))
 
 app.run_polling()
