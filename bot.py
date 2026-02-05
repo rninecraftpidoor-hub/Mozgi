@@ -5,21 +5,26 @@ import os
 TOKEN = os.environ["BOT_TOKEN"]
 
 async def play(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton(
-            text="🎮 Играть",
-            web_app=WebAppInfo(url="https://rninecraftpidoor-hub.github.io/Cazik/")
-        )]
-    ])
+if not update.message:
+return
 
-    await update.message.reply_text(
-        "Запусти мини-приложение 👇",
-        reply_markup=keyboard
-    )
+keyboard = InlineKeyboardMarkup([
+    [InlineKeyboardButton(
+        text="🎮 Играть",
+        web_app=WebAppInfo(url="https://rninecraftpidoor-hub.github.io/Cazik/")
+    )]
+])
+
+await update.message.reply_text(
+    "Запусти мини-приложение 👇",
+    reply_markup=keyboard
+)
 
 app = ApplicationBuilder().token(TOKEN).build()
+
+Работает и в ЛС, и в группах
 
 app.add_handler(CommandHandler("play", play))
 app.add_handler(CommandHandler("start", play))
 
-app.run_polling()
+app.run_polling(allowed_updates=Update.ALL_TYPES)
