@@ -19,7 +19,6 @@ async def play(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 app = ApplicationBuilder().token(TOKEN).build()
 
-# Ловим И start, И play (в ЛС и в группах)
 app.add_handler(CommandHandler(["start", "play"], play))
 
-app.run_polling()
+app.run_polling(allowed_updates=Update.ALL_TYPES)
