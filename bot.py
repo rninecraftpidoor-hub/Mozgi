@@ -5,7 +5,7 @@ import os
 TOKEN = os.environ["BOT_TOKEN"]
 
 async def play(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if not update.message:
+    if update.message is None:
         return
 
     keyboard = InlineKeyboardMarkup([
@@ -25,4 +25,4 @@ app = ApplicationBuilder().token(TOKEN).build()
 app.add_handler(CommandHandler("play", play))
 app.add_handler(CommandHandler("start", play))
 
-app.run_polling(allowed_updates=Update.ALL_TYPES)
+app.run_polling()
