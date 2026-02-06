@@ -5,7 +5,10 @@ import os
 TOKEN = os.environ["BOT_TOKEN"]
 
 async def play(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    print("PLAY CALLED", update.effective_chat.id)
+
     if not update.message:
+        print("NO MESSAGE OBJECT")
         return
 
     keyboard = InlineKeyboardMarkup([
