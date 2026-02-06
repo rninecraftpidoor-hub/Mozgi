@@ -1,45 +1,53 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
-from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters
+from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
 import os
 
 TOKEN = os.environ["BOT_TOKEN"]
+WEBAPP_URL = "https://rninecraftpidoor-hub.github.io/Cazik/"
 
 async def play(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    print("PLAY CALLED", update.effective_chat.id)
-
     if not update.message:
-        print("NO MESSAGE OBJECT")
         return
+
+    user_id = update.effective_user.id
+    chat_type = update.effective_chat.type
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton(
             text="🎮 Играть",
-            web_app=WebAppInfo(url="https://rninecraftpidoor-hub.github.io/Cazik/")
+            web_app=WebAppInfo(url=WEBAPP_URL)
         )]
     ])
 
-    await update.message.reply_text(
-        "Запусти мини-приложение 👇",
-        reply_markup=keyboard
-    )
-
-# Ловим ВСЕ сообщения в группе и проверяем текст вручную
-async def group_listener(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if not update.message or not update.message.text:
+    # Если команда в ЛС — просто открываем игру
+    if chat_type == "private":
+        await update.message.reply_text(
+            "Запусти мини-игру 👇",
+            reply_markup=keyboard
+        )
         return
 
-    text = update.message.text.lower()
+    # Если команда в группе — пытаемся написать в ЛС
+    try:
+        await context.bot.send_message(
+            chat_id=user_id,
+            text="🎮 Вот твоя мини-игра:",
+            reply_markup=keyboard
+        )
 
-    if text.startswith("/play"):
-        await play(update, context)
+        await update.message.reply_text(
+            "Я отправил игру тебе в личные сообщения 📩"
+        )
+
+    except:
+        await update.message.reply_text(
+            "Напиши мне в ЛС /start, чтобы я мог отправлять тебе игру:\n"
+            "https://t.me/Cazino"
+        )
 
 app = ApplicationBuilder().token(TOKEN).build()
 
-# Команды
-app.add_handler(CommandHandler("start", play))
 app.add_handler(CommandHandler("play", play))
-
-# Фикс для групп
-app.add_handler(MessageHandler(filters.TEXT & filters.ChatType.GROUPS, group_listener))
+app.add_handler(CommandHandler("start", play))
 
 app.run_polling()
