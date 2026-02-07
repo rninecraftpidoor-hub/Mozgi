@@ -42,7 +42,7 @@ async def play(update: Update, context: ContextTypes.DEFAULT_TYPE):
     except:
         await update.message.reply_text(
             "Напиши мне в ЛС /start, чтобы я мог отправлять тебе игру:\n"
-            "https://t.me/Cazino"
+            "https://t.me/Casino777by_egoist_bot"
         )
 
 app = ApplicationBuilder().token(TOKEN).build()
